@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 import getTableData from '../../lib/getTableData';
 
+import TableHead from '../../components/TableHead';
+import TableBodyRow from '../../components/TableBodyRow';
+
 function Table({ user }) {
   const [ allData, setAllData ] = useState(null);
   const [ tableData, setTableData ] = useState(null);
@@ -29,32 +32,10 @@ function Table({ user }) {
       <h1>Table</h1>
 
       <table>
-        <thead>
-          <tr>
-            <th>image</th>
-            <th>product name</th>
-            <th>product desc</th>
-            <th>category</th>
-            <th>quantity</th>
-            <th>style</th>
-            <th>color</th>
-            <th>price</th>
-            <th>currency</th>
-          </tr>
-        </thead>
+        <TableHead />
         <tbody>
           { tableData && tableData.map(tableData => (
-            <tr key={tableData.id}>
-              <td><img src={tableData.image} alt={tableData.product_name}/></td>
-              <td>{tableData.product_name}</td>
-              <td>{tableData.product_desc}</td>
-              <td>{tableData.price}</td>
-              <td>{tableData.currency}</td>
-              <td>{tableData.category}</td>
-              <td>{tableData.quantity}</td>
-              <td>{tableData.style}</td>
-              <td>{tableData.color}</td>
-            </tr>
+            <TableBodyRow key={tableData.id} tableData={tableData} />
           ))}
         </tbody>
       </table>
