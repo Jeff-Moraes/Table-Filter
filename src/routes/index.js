@@ -9,7 +9,10 @@ const Routes = (props) => {
   const [user, setUser] = useState(props.user);
   return (
     <Switch>
-      <Route path="/" exact component={Login} />
+      <Route
+        path="/"
+        render={(props) => <Login {...props} setUser={setUser} />}
+      />
       <Route
         path="/table"
         render={(props) => {
