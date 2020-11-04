@@ -18,7 +18,7 @@ const Routes = (props) => {
         exact
         path="/table"
         render={(props) => {
-          if (user) {
+          if (!user) {
             return <Table {...props} user={user} setUser={setUser} />;
           } else {
             return <Redirect to="/" />;
