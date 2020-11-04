@@ -5,6 +5,7 @@ import getTableData from '../../lib/getTableData';
 import Search from '../../components/Search';
 import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
+import PageButtons from '../../components/PageButtons';
 
 function Table() {
   const [ allData, setAllData ] = useState(null);
@@ -22,8 +23,8 @@ function Table() {
     const valuesFromTableData = await Object.values(dataFromTableData);
     setAllData(valuesFromTableData);
 
-    const intialTableData = await valuesFromTableData.slice(0,numberOfResults);
-    setTableData(intialTableData);
+    const intialTableData = await valuesFromTableData;
+    setTableData(intialTableData.slice(0,numberOfResults));
     setFilteredData(intialTableData);
   }
 
@@ -44,8 +45,10 @@ function Table() {
   }
   
   const updateTableData = () => {
+    console.log(filteredData, 1);
     const newTableData = filteredData?.slice((tablePage - 1) * numberOfResults, (tablePage * numberOfResults));
     setTableData(newTableData);
+    console.log(filteredData, 2);
   }
   
   useEffect(() => {
@@ -59,7 +62,8 @@ function Table() {
   useEffect(() => {
     filterAllDataByProductName();
   }, [productNameToSearch]);
-  
+
+
   return (
     <div>
       <h1>Table</h1>
@@ -81,9 +85,12 @@ function Table() {
         </tbody>
       </table>
 
-      <button type="button" onClick={handlePreviousPage} disabled={tablePage === 1}>previous</button>
-      <span>page {tablePage}</span>
-      <button type="button" onClick={handleNextPage} disabled={tablePage === Math.ceil(filteredData?.length / numberOfResults)}>next</button>
+      <PageButtons
+        tablePage={tablePage}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+        lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
+      />
     </div>
   )
 }
