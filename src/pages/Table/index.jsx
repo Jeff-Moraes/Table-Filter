@@ -15,50 +15,50 @@ function Table() {
   const fetchTableData = async () => {
     const dataFromTableData = await getTableData();
   
-    const valuesFromTableData = Object.values(dataFromTableData);
+    const valuesFromTableData = await Object.values(dataFromTableData);
     setAllData(valuesFromTableData);
 
-    const intialTableData = valuesFromTableData.slice(0,numberOfResults);
+    const intialTableData = await valuesFromTableData.slice(0,numberOfResults);
     setTableData(intialTableData);
   }
 
   const handlePreviousPage = () => {
     if(tablePage === 0) return;
     setTablePage(tablePage-1);
-    updateTableData(tablePage-1);
   }
 
   const handleNextPage = () => {
     if(tablePage === allData.length / numberOfResults) return;
     setTablePage(tablePage+1);
-    updateTableData(tablePage+1);
   }
 
-  const updateTableData = (newPage) => {
-    const newTableData = allData.slice((newPage - 1) * numberOfResults, (newPage * numberOfResults));
-    setTableData(newTableData);
+  const updateTableData = () => {
+    const newTableData = allData?.slice((tablePage - 1) * numberOfResults, (tablePage * numberOfResults));
+    if(newTableData) setTableData(newTableData);
   }
 
   useEffect(() => {
     fetchTableData();
   }, []);
 
-  console.log((tablePage -1 ) * numberOfResults, (tablePage * numberOfResults))
+  useEffect(() => {
+    updateTableData();
+  }, [tablePage]);
   
   return (
     <div>
       <h1>Table</h1>
-
       <table>
         <TableHead />
         <tbody>
           { tableData ? tableData.map(tableData => (
             <TableBodyRow key={tableData.id} tableData={tableData} />
           )) : (
-            <p>Loading...</p>
+            <tr><td>Loading...</td></tr>
           )}
         </tbody>
       </table>
+
       <button type="button" onClick={handlePreviousPage} disabled={tablePage === 1}>previous</button>
       <span>page {tablePage}</span>
       <button type="button" onClick={handleNextPage}>next</button>
