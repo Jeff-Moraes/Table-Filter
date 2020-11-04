@@ -43,11 +43,16 @@ function Table() {
 
   useEffect(() => {
     updateTableData();
-  }, [tablePage]);
+  }, [tablePage, numberOfResults]);
   
   return (
     <div>
       <h1>Table</h1>
+      <form>
+        <label htmlFor="numberOfResults">Select the number of results per page</label>
+        <input type="number" name="numberOfResults" id="numberOfResults" onChange={(event) => setNumberOfResults(event.target.value)}/>
+      </form>
+
       <table>
         <TableHead />
         <tbody>
