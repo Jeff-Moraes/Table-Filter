@@ -10,10 +10,12 @@ const Routes = (props) => {
   return (
     <Switch>
       <Route
+        exact
         path="/"
         render={(props) => <Login {...props} setUser={setUser} />}
       />
       <Route
+        exact
         path="/table"
         render={(props) => {
           if (user) {
