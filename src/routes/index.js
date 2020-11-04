@@ -18,11 +18,12 @@ const Routes = (props) => {
         exact
         path="/table"
         render={(props) => {
-          if (!user) {
-            return <Table {...props} user={user} setUser={setUser} />;
-          } else {
-            return <Redirect to="/" />;
-          }
+          // if (user) {
+          //   return <Table {...props} user={user} setUser={setUser} />;
+          // } else {
+          //   return <Redirect to="/" />;
+          // }
+          return <Table {...props} user={user} setUser={setUser} />
         }}
       />
     </Switch>
