@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import getTableData from '../../lib/getTableData';
 
+import Search from '../../components/Search';
 import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
 
@@ -62,24 +63,12 @@ function Table() {
   return (
     <div>
       <h1>Table</h1>
-      <form>
-        <label htmlFor="numberOfResults">Select the number of results per page</label>
-        <input
-          type="number"
-          name="numberOfResults"
-          id="numberOfResults"
-          value={numberOfResults}
-          onChange={(event) => setNumberOfResults(event.target.value)}
-        />
-        <label htmlFor="numberOfResults">Search a product by name</label>
-        <input
-          type="text"
-          name="productNameToSearch"
-          id="productNameToSearch"
-          value={productNameToSearch}
-          onChange={(event) => setProductNameToSearch(event.target.value)}
-        />
-      </form>
+      <Search
+        numberOfResults={numberOfResults}
+        setNumberOfResults={setNumberOfResults}
+        productNameToSearch={productNameToSearch}
+        setProductNameToSearch={setProductNameToSearch}
+      />
 
       <table>
         <TableHead />
