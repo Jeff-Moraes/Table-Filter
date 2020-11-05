@@ -1,8 +1,10 @@
 import React from 'react'
 
+import { TableRowContainer } from './styles';
+
 export default function TableBodyRow({ tableData }) {
   return (
-    <tr key={tableData.id}>
+    <TableRowContainer key={tableData.id}>
       <td scope="row">
         <img
           src={tableData.image || 
@@ -18,6 +20,6 @@ export default function TableBodyRow({ tableData }) {
       <td>{tableData.style}</td>
       <td>{tableData.price}</td>
       <td>{tableData.currency}</td>
-    </tr>
+    </TableRowContainer>
   )
 }
