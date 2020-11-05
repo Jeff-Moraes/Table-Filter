@@ -7,6 +7,8 @@ import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
 import PageButtons from '../../components/PageButtons';
 
+import { TableContainer } from './styles';
+
 function Table() {
   const [ allData, setAllData ] = useState(null);
   const [ tableData, setTableData ] = useState(null);
@@ -28,9 +30,9 @@ function Table() {
     const colorOptionsFromTableData = [...new Set(valuesFromTableData.map(product => product.color))].filter(color => color);
     setColorOptions(colorOptionsFromTableData);
 
-    const intialTableData = await valuesFromTableData;
-    setTableData(intialTableData.slice(0,numberOfResults));
-    setFilteredData(intialTableData);
+    const intialTableData = valuesFromTableData.slice(0,numberOfResults);
+    setTableData(intialTableData);
+    setFilteredData(valuesFromTableData);
   }
 
   const handlePreviousPage = () => {
@@ -68,8 +70,9 @@ function Table() {
   }, [productNameToSearch, selectedColor]);
 
   return (
-    <div>
-      <h1>Table</h1>
+    <TableContainer className="py-5 px-4">
+      <h1 className="display-3">Table Filter</h1>
+      
       <Search
         numberOfResults={numberOfResults}
         setNumberOfResults={setNumberOfResults}
@@ -79,7 +82,7 @@ function Table() {
         setSelectedColor={setSelectedColor}
       />
       
-      <table>
+      <table className="table">
         <TableHead />
         <tbody>
           { tableData ? tableData.map(tableData => (
@@ -96,7 +99,7 @@ function Table() {
         handleNextPage={handleNextPage}
         lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
       />
-    </div>
+    </TableContainer>
   )
 }
 
