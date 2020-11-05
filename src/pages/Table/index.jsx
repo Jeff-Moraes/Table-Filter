@@ -10,18 +10,23 @@ import PageButtons from '../../components/PageButtons';
 function Table() {
   const [ allData, setAllData ] = useState(null);
   const [ tableData, setTableData ] = useState(null);
-
   const [ filteredData, setFilteredData ] = useState(null);
-  const [ tablePage, setTablePage ] = useState(1);
-  const [ numberOfResults, setNumberOfResults ] = useState(10);
 
+  const [ colorOptions, setColorOptions ] = useState(null);
+
+  const [ tablePage, setTablePage ] = useState(1);
+  const [ selectedColor, setSelectedColor ] = useState("");
+  const [ numberOfResults, setNumberOfResults ] = useState(10);
   const [ productNameToSearch, setProductNameToSearch ] = useState("");
 
   const fetchTableData = async () => {
     const dataFromTableData = await getTableData();
   
     const valuesFromTableData = await Object.values(dataFromTableData);
-    setAllData(valuesFromTableData);
+    setAllData(valuesFromTableData);  
+
+    const colorOptionsFromTableData = [...new Set(valuesFromTableData.map(product => product.color))].filter(color => color);
+    setColorOptions(colorOptionsFromTableData);
 
     const intialTableData = await valuesFromTableData;
     setTableData(intialTableData.slice(0,numberOfResults));
@@ -38,17 +43,16 @@ function Table() {
     setTablePage(tablePage+1);
   }
 
-  const filterAllDataByProductName = async () => {
-    const filteredAllDataByProductName = await allData?.filter(product => product.product_name.includes(productNameToSearch));
+  const filterAllData = () => {
+    const filteredAllDataByColor = selectedColor ? allData?.filter(product => product.color === selectedColor) : allData;
+    const filteredAllDataByProductName = filteredAllDataByColor?.filter(product => product.product_name.includes(productNameToSearch));
     setFilteredData(filteredAllDataByProductName);
     setTablePage(1);
   }
   
   const updateTableData = () => {
-    console.log(filteredData, 1);
     const newTableData = filteredData?.slice((tablePage - 1) * numberOfResults, (tablePage * numberOfResults));
     setTableData(newTableData);
-    console.log(filteredData, 2);
   }
   
   useEffect(() => {
@@ -60,9 +64,8 @@ function Table() {
   }, [tablePage, numberOfResults, filteredData]);
   
   useEffect(() => {
-    filterAllDataByProductName();
-  }, [productNameToSearch]);
-
+    filterAllData();
+  }, [productNameToSearch, selectedColor]);
 
   return (
     <div>
@@ -72,8 +75,10 @@ function Table() {
         setNumberOfResults={setNumberOfResults}
         productNameToSearch={productNameToSearch}
         setProductNameToSearch={setProductNameToSearch}
+        colorOptions={colorOptions}
+        setSelectedColor={setSelectedColor}
       />
-
+      
       <table>
         <TableHead />
         <tbody>
