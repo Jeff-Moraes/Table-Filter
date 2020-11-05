@@ -68,7 +68,7 @@ function Table() {
   }, [productNameToSearch, selectedColor]);
 
   return (
-    <TableContainer className="py-5 px-4">
+    <div className="py-5 px-4">
       <h1 className="display-3">Table Filter</h1>
 
       <Search
@@ -97,7 +97,7 @@ function Table() {
         handleNextPage={handleNextPage}
         lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
       />
-    </TableContainer>
+    </div>
   )
 }
 
