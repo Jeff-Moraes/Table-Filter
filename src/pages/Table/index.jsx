@@ -7,6 +7,8 @@ import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
 import PageButtons from '../../components/PageButtons';
 
+import { TableContainer } from './styles';
+
 function Table() {
   const [ allData, setAllData ] = useState(null);
   const [ tableData, setTableData ] = useState(null);
@@ -30,6 +32,7 @@ function Table() {
 
     const intialTableData = valuesFromTableData.slice(0,numberOfResults);
     setTableData(intialTableData);
+    setFilteredData(valuesFromTableData);
   }
 
   const handlePreviousPage = () => {
@@ -67,7 +70,7 @@ function Table() {
   }, [productNameToSearch, selectedColor]);
 
   return (
-    <div>
+    <TableContainer>
       <h1>Table</h1>
       <Search
         numberOfResults={numberOfResults}
@@ -95,7 +98,7 @@ function Table() {
         handleNextPage={handleNextPage}
         lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
       />
-    </div>
+    </TableContainer>
   )
 }
 
