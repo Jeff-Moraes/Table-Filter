@@ -57,13 +57,16 @@ setupProductsData();
 
 //search all products by given string (matches whole string)
 app.get('/search', (req, res) => {
-  let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
-  let limit = req.query.limit === undefined ? 10 : parseInt(req.query.limit);
+  let page = req.query.page ? parseInt(req.query.page) : 1;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
   let skip = limit * (page - 1);
-  let searchText = req.query.search === undefined ? {} : { $text: { $search: req.query.search } };
 
+  let productNameToSearch = req.query.productNameToSearch ? { $text: { $search: req.query.productNameToSearch } } : {}; 
+  let selectedColor = req.query.selectedColor ? { color: req.query.selectedColor } : {}; 
+
+  let searchText = { $and: [ productNameToSearch, selectedColor ] };
   let sortById = { id: 1 };
-  
+
   productsCollection.find(searchText).sort(sortById).skip(skip).limit(limit).toArray()
   .then(results => {
       res.json(results);
