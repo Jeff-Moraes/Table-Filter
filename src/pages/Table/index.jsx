@@ -70,8 +70,9 @@ function Table() {
   }, [productNameToSearch, selectedColor]);
 
   return (
-    <TableContainer>
-      <h1>Table</h1>
+    <TableContainer className="py-5 px-4">
+      <h1 className="display-3">Table Filter</h1>
+      
       <Search
         numberOfResults={numberOfResults}
         setNumberOfResults={setNumberOfResults}
