@@ -3,7 +3,13 @@ import React from 'react'
 export default function TableBodyRow({ tableData }) {
   return (
     <tr key={tableData.id}>
-      <td><img src={tableData.image} alt={tableData.product_name}/></td>
+      <td>
+        <img
+          src={tableData.image || 
+          "https://res.cloudinary.com/jeffmoraes/image/upload/v1604566800/projects/default_product_image_ulqnuh.png"}
+          alt={tableData.product_name}
+        />
+      </td>
       <td>{tableData.product_name}</td>
       <td>{tableData.product_desc}</td>
       <td>{tableData.category}</td>
