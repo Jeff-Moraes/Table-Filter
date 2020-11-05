@@ -7,8 +7,6 @@ import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
 import PageButtons from '../../components/PageButtons';
 
-import { TableContainer } from './styles';
-
 function Table() {
   const [ allData, setAllData ] = useState(null);
   const [ tableData, setTableData ] = useState(null);
@@ -70,9 +68,9 @@ function Table() {
   }, [productNameToSearch, selectedColor]);
 
   return (
-    <TableContainer className="py-5 px-4">
+    <div className="py-5 px-4">
       <h1 className="display-3">Table Filter</h1>
-      
+
       <Search
         numberOfResults={numberOfResults}
         setNumberOfResults={setNumberOfResults}
@@ -99,7 +97,7 @@ function Table() {
         handleNextPage={handleNextPage}
         lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
       />
-    </TableContainer>
+    </div>
   )
 }
 
