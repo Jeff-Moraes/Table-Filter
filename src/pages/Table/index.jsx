@@ -28,9 +28,8 @@ function Table() {
     const colorOptionsFromTableData = [...new Set(valuesFromTableData.map(product => product.color))].filter(color => color);
     setColorOptions(colorOptionsFromTableData);
 
-    const intialTableData = await valuesFromTableData;
-    setTableData(intialTableData.slice(0,numberOfResults));
-    setFilteredData(intialTableData);
+    const intialTableData = valuesFromTableData.slice(0,numberOfResults);
+    setTableData(intialTableData);
   }
 
   const handlePreviousPage = () => {
@@ -79,7 +78,7 @@ function Table() {
         setSelectedColor={setSelectedColor}
       />
       
-      <table>
+      <table className="table">
         <TableHead />
         <tbody>
           { tableData ? tableData.map(tableData => (
