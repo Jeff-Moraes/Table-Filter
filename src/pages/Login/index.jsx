@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 import validateUserLogin from '../../lib/validateUserLogin';
 
+import { LoginContainer, LoginContent, Background } from './styles';
+
 function Login({ setUser }) {
   const history = useHistory();
 
@@ -29,15 +31,30 @@ function Login({ setUser }) {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
+    <LoginContainer>
+      <LoginContent>
+      <h1 className="display-3">Login</h1>
       <form onSubmit={handleLoginSubmit}>
-        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="username" />
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="password" />
-        { errorMessage && <p>{errorMessage}</p>}
-        <button type="submit">login</button>
+        <input
+          className="form-control mb-3"
+          type="text"
+          value={username}
+          placeholder="username"
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <input
+          className="form-control mb-3"
+          type="password"
+          value={password}
+          placeholder="password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        { errorMessage && <p className="errorMessage">{errorMessage}</p>}
+        <button className="btn btn-outline-secondary" type="submit">login</button>
       </form>
-    </div>
+      </LoginContent>
+      <Background />
+    </LoginContainer>
   )
 }
 
