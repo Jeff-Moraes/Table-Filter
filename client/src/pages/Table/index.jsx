@@ -16,8 +16,10 @@ function Table() {
   const [ numberOfResults, setNumberOfResults ] = useState(10);
   const [ searchProducts, setSearchProducts ] = useState("");
 
+  const query = `?limit=${numberOfResults}&page=${tablePage}&searchProducts=${searchProducts}&selectedColor=${selectedColor}`
+
   const fetchAllDataFromAPI = async () => {
-    const { data } = await axios.get(`http://localhost:5555/search?limit=${numberOfResults}&page=${tablePage}&searchProducts=${searchProducts}&selectedColor=${selectedColor}`);
+    const { data } = await axios.get(`http://localhost:5555/search${query}`);
 
     setFilteredData(data.dataResult);
     setlastPage(data.numberOfPages);
