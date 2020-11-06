@@ -61,15 +61,25 @@ app.get('/search', (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 10;
   let skip = limit * (page - 1);
 
-  let productNameToSearch = req.query.productNameToSearch ? { $text: { $search: req.query.productNameToSearch } } : {}; 
+  let searchProducts = req.query.searchProducts ? { $text: { $search: req.query.searchProducts } } : {}; 
   let selectedColor = req.query.selectedColor ? { color: req.query.selectedColor } : {}; 
 
-  let searchText = { $and: [ productNameToSearch, selectedColor ] };
+  let searchText = { $and: [ searchProducts, selectedColor ] };
   let sortById = { id: 1 };
 
   productsCollection.find(searchText).sort(sortById).skip(skip).limit(limit).toArray()
   .then(results => {
-      res.json(results);
+    res.json(results);
   })
   .catch(error => console.error(error))
+});
+
+//search all products by given string (matches whole string)
+app.get('/colors', (req, res) => {
+  productsCollection.find({}).toArray()
+    .then(results => {
+      const colorOptionsFromTableData = [...new Set(results.map(product => product.color))].filter(color => color);
+      res.json(colorOptionsFromTableData);
+    })
+    .catch(error => console.error(error))
 });
