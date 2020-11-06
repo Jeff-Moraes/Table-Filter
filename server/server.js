@@ -55,10 +55,14 @@ async function setupProductsData() {
 
 setupProductsData();
 
+function getIntWithDefault(value, defaultValue) {
+  let intValue = parseInt(value);
+  return !isNaN(intValue) ? intValue : defaultValue;
+}
 //search all products by given string (matches whole string)
-app.get('/search', (req, res) => {
-  let page = req.query.page ? parseInt(req.query.page) : 1;
-  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
+app.get('/search', async (req, res) => {
+  let page = Math.max(getIntWithDefault(req.query.page, 1), 1);
+  let limit = Math.max(getIntWithDefault(req.query.limit, 10), 1);
   let skip = limit * (page - 1);
 
   let searchProducts = req.query.searchProducts ? { $text: { $search: req.query.searchProducts } } : {}; 
@@ -67,11 +71,16 @@ app.get('/search', (req, res) => {
   let searchText = { $and: [ searchProducts, selectedColor ] };
   let sortById = { id: 1 };
 
-  productsCollection.find(searchText).sort(sortById).skip(skip).limit(limit).toArray()
-  .then(results => {
-    res.json(results);
-  })
-  .catch(error => console.error(error))
+  try {
+    let countAllSearchProducts = await productsCollection.countDocuments(searchText)
+    let numberOfPages = Math.ceil(countAllSearchProducts / limit);
+  
+    let dataResult = await productsCollection.find(searchText).sort(sortById).skip(skip).limit(limit).toArray();
+    
+    res.json({dataResult, numberOfPages});
+  } catch (error) {
+    console.error(error)
+  }
 });
 
 //search all products by given string (matches whole string)
