@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const TableRowContainer = styled.tr`
   td {
+    font-size: 0.9rem;
     img {
       height: 100px;
       width: 100px;
@@ -24,10 +25,10 @@ export const TableRowContainer = styled.tr`
   }
 
   .productName {
-    min-width: 270px;
+    min-width: 250px;
   }
 
   .productDescription {
-    min-width: 350px;
+    min-width: 300px;
   }
 `;
