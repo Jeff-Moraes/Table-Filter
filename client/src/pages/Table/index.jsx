@@ -64,8 +64,7 @@ function Table() {
 
       <PageButtons
         tablePage={tablePage}
-        handlePreviousPage={() => setTablePage(tablePage-1)}
-        handleNextPage={() => setTablePage(tablePage+1)}
+        setTablePage={setTablePage}
       />
     </div>
   )
