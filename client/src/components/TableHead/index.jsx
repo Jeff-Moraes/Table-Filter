@@ -5,8 +5,8 @@ export default function TableHead() {
     <thead className="thead-dark">
       <tr>
         <th scope="col">image</th>
-        <th scope="col">product name</th>
-        <th scope="col">product desc</th>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
         <th scope="col">color</th>
         <th scope="col">category</th>
         <th scope="col">quantity</th>
