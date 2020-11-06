@@ -29,20 +29,21 @@ function Table() {
     const { data } = await axios.get('http://localhost:5555/colors');
     setColorOptions(data)
   }
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    fetchAllDataFromAPI();
+    setTablePage(1);
+  }
   
   useEffect(() => {
     fetchAllDataFromAPI();
     fetchColorsFromAPI();
   }, []);
-  
-  useEffect(() => {
-    fetchAllDataFromAPI();
-    setTablePage(1);
-  }, [searchProducts, selectedColor]);
 
   useEffect(() => {
     fetchAllDataFromAPI();
-  }, [numberOfResults, tablePage]);
+  }, [tablePage]);
 
   return (
     <div className="py-5 px-4">
@@ -54,6 +55,7 @@ function Table() {
         setNumberOfResults={setNumberOfResults}
         setSearchProducts={setSearchProducts}
         setSelectedColor={setSelectedColor}
+        handleSubmitForm={handleSubmitForm}
       />
       
       <table className="table">

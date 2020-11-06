@@ -2,9 +2,9 @@ import React from 'react'
 
 import { SearchContainer } from './styles';
 
-export default function Search({ numberOfResults, setNumberOfResults, searchProducts, setSearchProducts, colorOptions, setSelectedColor }) {
+export default function Search({ numberOfResults, setNumberOfResults, searchProducts, setSearchProducts, colorOptions, setSelectedColor, handleSubmitForm }) {
   return (
-    <SearchContainer className="mb-3 mt-3">
+    <SearchContainer className="mb-3 mt-3" onSubmit={handleSubmitForm}>
       <div className="productName">
         <input
           className="form-control"
@@ -44,6 +44,7 @@ export default function Search({ numberOfResults, setNumberOfResults, searchProd
           </select>
         )}
       </div>
+      <button type="submit" className="btn btn-outline-info">search</button>
     </SearchContainer>
   )
 }
