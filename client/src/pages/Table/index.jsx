@@ -11,13 +11,16 @@ function Table() {
   const [ colorOptions, setColorOptions ] = useState(null);
 
   const [ tablePage, setTablePage ] = useState(1);
+  const [ lastPage, setlastPage ] = useState(1);
   const [ selectedColor, setSelectedColor ] = useState("");
   const [ numberOfResults, setNumberOfResults ] = useState(10);
   const [ searchProducts, setSearchProducts ] = useState("");
 
   const fetchAllDataFromAPI = async () => {
     const { data } = await axios.get(`http://localhost:5555/search?limit=${numberOfResults}&page=${tablePage}&searchProducts=${searchProducts}&selectedColor=${selectedColor}`);
-    setFilteredData(data);
+
+    setFilteredData(data.dataResult);
+    setlastPage(data.numberOfPages);
   }
 
   const fetchColorsFromAPI = async () => {
@@ -65,6 +68,7 @@ function Table() {
       <PageButtons
         tablePage={tablePage}
         setTablePage={setTablePage}
+        lastPage={lastPage}
       />
     </div>
   )

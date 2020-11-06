@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PageButtons({ tablePage, setTablePage }) {
+export default function PageButtons({ tablePage, setTablePage, lastPage }) {
   return (
     <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
       <button 
@@ -18,6 +18,7 @@ export default function PageButtons({ tablePage, setTablePage }) {
         className="btn btn-outline-secondary"
         type="button"
         onClick={() => setTablePage(tablePage + 1)}
+        disabled={tablePage === lastPage}
       >
         next
       </button>
