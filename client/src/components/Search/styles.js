@@ -26,4 +26,8 @@ export const SearchContainer = styled.form`
   .colorOptions {
       min-width: 130px;
   }
+
+  button {
+    margin-left: 30px;
+  }
 `;

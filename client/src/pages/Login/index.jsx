@@ -22,6 +22,7 @@ function Login({ setUser }) {
         setErrorMessage(error);
       } else {
         setUser(user);
+        window.localStorage.setItem("username", user.username);
         history.push('/table')
       }
     } catch (error) {

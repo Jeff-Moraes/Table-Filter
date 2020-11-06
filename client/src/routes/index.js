@@ -5,8 +5,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../pages/Login";
 import Table from "../pages/Table";
 
-const Routes = (props) => {
-  const [user, setUser] = useState(props.user);
+const Routes = () => {
+  const [user, setUser] = useState(window.localStorage.getItem("username"));
+
   return (
     <Switch>
       <Route
@@ -19,7 +20,7 @@ const Routes = (props) => {
         path="/table"
         render={(props) => {
           if (user) {
-            return <Table {...props} user={user} setUser={setUser} />;
+            return <Table {...props} setUser={setUser} />;
           } else {
             return <Redirect to="/" />;
           }
