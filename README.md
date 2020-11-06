@@ -65,7 +65,7 @@ $ yarn start
 
 ```
 
-The Node server can be accessed on http://localhost:5555, while the react app can be accessed on http://localhost:3000.
+The Node server is running on http://localhost:5555, while the react app is running on http://localhost:3000.
 
 To login you can use: </br>
 username: JohnDoe </br>
