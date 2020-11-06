@@ -1,13 +1,14 @@
 import React from 'react'
 
-export default function PageButtons({ tablePage, handlePreviousPage, handleNextPage, lastPageNumber }) {
+export default function PageButtons({ tablePage, setTablePage }) {
   return (
     <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
       <button 
         className="btn btn-outline-secondary"
         type="button"
-        onClick={handlePreviousPage}
-        disabled={tablePage === 1}>
+        onClick={() => setTablePage(tablePage - 1)}
+        disabled={tablePage === 1}
+      >
         previous
       </button>
 
@@ -16,8 +17,8 @@ export default function PageButtons({ tablePage, handlePreviousPage, handleNextP
       <button
         className="btn btn-outline-secondary"
         type="button"
-        onClick={handleNextPage}
-        disabled={tablePage === lastPageNumber}>
+        onClick={() => setTablePage(tablePage + 1)}
+      >
         next
       </button>
     </div>

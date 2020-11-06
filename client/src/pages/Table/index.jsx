@@ -17,22 +17,12 @@ function Table() {
 
   const fetchAllDataFromAPI = async () => {
     const { data } = await axios.get(`http://localhost:5555/search?limit=${numberOfResults}&page=${tablePage}&searchProducts=${searchProducts}&selectedColor=${selectedColor}`);
-    setFilteredData(data)
+    setFilteredData(data);
   }
 
   const fetchColorsFromAPI = async () => {
     const { data } = await axios.get('http://localhost:5555/colors');
     setColorOptions(data)
-  }
-
-  const handlePreviousPage = () => {
-    if(tablePage === 0) return;
-    setTablePage(tablePage-1);
-  }
-
-  const handleNextPage = () => {
-    if(tablePage === Math.ceil(filteredData.length / numberOfResults)) return;
-    setTablePage(tablePage+1);
   }
   
   useEffect(() => {
@@ -42,7 +32,12 @@ function Table() {
   
   useEffect(() => {
     fetchAllDataFromAPI();
-  }, [tablePage, numberOfResults, searchProducts, selectedColor]);
+    setTablePage(1);
+  }, [searchProducts, selectedColor]);
+
+  useEffect(() => {
+    fetchAllDataFromAPI();
+  }, [numberOfResults, tablePage]);
 
   return (
     <div className="py-5 px-4">
@@ -69,9 +64,8 @@ function Table() {
 
       <PageButtons
         tablePage={tablePage}
-        handlePreviousPage={handlePreviousPage}
-        handleNextPage={handleNextPage}
-        lastPageNumber={Math.ceil(filteredData?.length / numberOfResults)}
+        handlePreviousPage={() => setTablePage(tablePage-1)}
+        handleNextPage={() => setTablePage(tablePage+1)}
       />
     </div>
   )
