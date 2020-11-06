@@ -6,7 +6,7 @@ import TableHead from '../../components/TableHead';
 import TableBodyRow from '../../components/TableBodyRow';
 import PageButtons from '../../components/PageButtons';
 
-function Table() {
+function Table({ setUser }) {
   const [ filteredData, setFilteredData ] = useState(null);
   const [ colorOptions, setColorOptions ] = useState(null);
 
@@ -45,9 +45,23 @@ function Table() {
     fetchAllDataFromAPI();
   }, [tablePage]);
 
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("username");
+  }
+
   return (
     <div className="py-5 px-4">
-      <h1 className="display-3">Table Filter</h1>
+      <div className="d-flex justify-content-between">
+        <h1 className="display-3">Table Filter</h1>
+        <button
+          type="button"
+          className="btn btn-outline-secondary h-25"
+          onClick={handleLogout}
+        >
+        Logout
+        </button>
+      </div>
 
       <Search
         colorOptions={colorOptions}
