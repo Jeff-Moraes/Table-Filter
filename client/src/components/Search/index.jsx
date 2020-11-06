@@ -8,7 +8,7 @@ export default function Search({ numberOfResults, setNumberOfResults, searchProd
       <div className="productName">
         <input
           className="form-control"
-          placeholder="Search by product name"
+          placeholder="Search"
           type="text"
           name="searchProducts"
           id="searchProducts"
