@@ -39,7 +39,7 @@ export const LoginContent = styled.div`
 
 export const Background = styled.div`
   flex: 1;
-  background: url("https://res.cloudinary.com/jeffmoraes/image/upload/v1604584949/projects/gdtography-LCJ9iOli-uE-unsplash_e8dnwz.jpg")
+  background: url("https://res.cloudinary.com/jeffmoraes/image/upload/c_scale,w_1400/v1604584949/projects/gdtography-LCJ9iOli-uE-unsplash_e8dnwz.jpg")
     no-repeat center;
   background-size: cover;
 `;
