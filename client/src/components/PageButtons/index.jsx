@@ -11,9 +11,7 @@ export default function PageButtons({ tablePage, setTablePage, lastPage }) {
       >
         previous
       </button>
-
       <span className="mr-3 ml-3">page {tablePage}</span>
-
       <button
         className="btn btn-outline-secondary"
         type="button"
