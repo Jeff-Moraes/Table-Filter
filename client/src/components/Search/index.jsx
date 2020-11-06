@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SearchContainer } from './styles';
 
-export default function Search({ numberOfResults, setNumberOfResults, productNameToSearch, setProductNameToSearch, colorOptions, setSelectedColor }) {
+export default function Search({ numberOfResults, setNumberOfResults, searchProducts, setSearchProducts, colorOptions, setSelectedColor }) {
   return (
     <SearchContainer className="mb-3 mt-3">
       <div className="productName">
@@ -10,11 +10,24 @@ export default function Search({ numberOfResults, setNumberOfResults, productNam
           className="form-control"
           placeholder="Search by product name"
           type="text"
-          name="productNameToSearch"
-          id="productNameToSearch"
-          value={productNameToSearch}
-          onChange={(event) => setProductNameToSearch(event.target.value)}
+          name="searchProducts"
+          id="searchProducts"
+          value={searchProducts}
+          onChange={(event) => setSearchProducts(event.target.value)}
         />
+      </div>
+      <div className="input-group numberOfResults">
+        <input
+          type="number"
+          min="1"
+          name="numberOfResults"
+          id="numberOfResults"
+          value={numberOfResults}
+          onChange={(event) => setNumberOfResults(event.target.value)}
+        />
+        <div className="input-group-append">
+          <span className="input-group-text" id="basic-addon2">results per page</span>
+        </div>
       </div>
       <div>
         { colorOptions && (
@@ -30,18 +43,6 @@ export default function Search({ numberOfResults, setNumberOfResults, productNam
             ))}
           </select>
         )}
-      </div>
-      <div className="input-group numberOfResults">
-        <input
-          type="number"
-          name="numberOfResults"
-          id="numberOfResults"
-          value={numberOfResults}
-          onChange={(event) => setNumberOfResults(event.target.value)}
-        />
-        <div className="input-group-append">
-          <span className="input-group-text" id="basic-addon2">results per page</span>
-        </div>
       </div>
     </SearchContainer>
   )
