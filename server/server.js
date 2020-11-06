@@ -59,7 +59,7 @@ function getIntWithDefault(value, defaultValue) {
   let intValue = parseInt(value);
   return !isNaN(intValue) ? intValue : defaultValue;
 }
-//search all products by given string (matches whole string)
+
 app.get('/search', async (req, res) => {
   let page = Math.max(getIntWithDefault(req.query.page, 1), 1);
   let limit = Math.max(getIntWithDefault(req.query.limit, 10), 1);
@@ -83,12 +83,12 @@ app.get('/search', async (req, res) => {
   }
 });
 
-//search all products by given string (matches whole string)
-app.get('/colors', (req, res) => {
-  productsCollection.find({}).toArray()
-    .then(results => {
-      const colorOptionsFromTableData = [...new Set(results.map(product => product.color))].filter(color => color);
-      res.json(colorOptionsFromTableData);
-    })
-    .catch(error => console.error(error))
+app.get('/colors', async (req, res) => {
+  try {
+    const colorOptionsFromProductsCollection = await productsCollection.distinct('color');
+    const filteredColors = colorOptionsFromProductsCollection.filter(color => color);
+    res.json(filteredColors);
+  } catch (error) {
+    console.error(error)
+  }
 });
