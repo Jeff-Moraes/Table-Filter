@@ -14,6 +14,7 @@ export const SearchContainer = styled.form`
   }
 
   .numberOfResults {
+    width: auto;
     input {
       max-width: 70px;
       padding-left: 10px; 
